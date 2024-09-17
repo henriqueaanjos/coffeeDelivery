@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import { Baloo2_700Bold } from "@expo-google-fonts/baloo-2";
+import { Loading } from "@components/Loading";
+import { Routes } from "@routes/index";
+import { Cart } from "src/screens/Cart";
+import { CartContextProvider } from "src/context/cartContext";
+
 
 export default function App() {
+  const [fontsLoaded] = useFonts({Roboto_400Regular, Roboto_700Bold, Baloo2_700Bold});
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <CartContextProvider>
+        {fontsLoaded ? 
+          <Routes/> 
+          : <Loading/>
+        }
+      </CartContextProvider>
+		</GestureHandlerRootView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
